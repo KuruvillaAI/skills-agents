@@ -1,20 +1,21 @@
 ﻿# DeploymentHook
 
 ## Trigger
-CI pipeline reaches the deploy stage
+Render starts an automatic deployment after a commit reaches the configured `main` branch, or a deployment is started manually.
 
 ## Purpose
-Deploy build artifacts to the target environment and run a health check.
+Coordinate Render deployment of the frontend Static Site and backend Docker Web Service, then verify the public application contract.
 
 ## Preconditions
 - The relevant repository is present and its dependencies are installed.
 - Any upstream hooks required before this one have completed successfully.
 
 ## Actions
-1. Detect that the trigger condition has occurred.
-2. Invoke the responsible agent(s): DeploymentAgent.
-3. Apply the relevant skill(s): ContinuousDeployment, CloudDeployment.
-4. Record the outcome (pass/fail) and any artifacts (logs, reports, evidence).
+1. Identify the affected `KuruvillaAI` repository and Render service.
+2. Invoke `DeploymentAgent` and apply `ContinuousDeployment`, `CloudDeployment`, and `DevOpsDeployment`.
+3. Confirm the Render deployment is live.
+4. Check backend `GET /health`, frontend HTTP 200, and CORS from the frontend origin.
+5. Record URLs, deployment logs, status, and free-tier limitations.
 
 ## Failure Behavior
 - On failure, halt the current task and report the failure to `MasterOrchestrationAgent`.
@@ -25,7 +26,7 @@ Deploy build artifacts to the target environment and run a health check.
 DeploymentAgent
 
 ## Required Skills
-ContinuousDeployment, CloudDeployment
+ContinuousDeployment, CloudDeployment, DevOpsDeployment
 
 ## Example
-"Trigger DeploymentHook after cI pipeline reaches the deploy stage and report the result."
+"Trigger DeploymentHook after Render deploys the main branch and report health, CORS, frontend, and backend results."

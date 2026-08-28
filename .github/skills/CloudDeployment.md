@@ -4,13 +4,14 @@
 Provider-agnostic cloud deployment guidance.
 
 ## Description
-This skill packages the domain knowledge and conventions required to provider-agnostic cloud deployment guidance. It is invoked by its related agents whenever a task falls within this scope, and should be referenced by GitHub Copilot Chat when working on related files.
+This skill packages provider-agnostic deployment guidance while documenting the current Render implementation used by this project.
 
 ## Workflow
-1. Identify that the current task matches this skill's purpose.
-2. Apply the relevant conventions, patterns, and quality bars for this domain.
-3. Produce or modify the artifact (code, config, or documentation).
-4. Hand off to the related testing/QA agent for verification.
+1. Identify the target provider and service type.
+2. Validate the provider's free-tier limits, runtime, build, health-check, and secret behavior.
+3. Configure the service from the repository without embedding credentials.
+4. Verify public URL, health, CORS, and user-facing behavior.
+5. Record provider-specific limitations and hand off to post-deployment QA.
 
 ## Inputs
 Task description, existing related code/config/docs, project conventions (see architecture/ and instructions/).
@@ -19,10 +20,10 @@ Task description, existing related code/config/docs, project conventions (see ar
 Implemented or updated artifact, plus any tests/documentation required by the change.
 
 ## Related Agents
-CloudAgent, AzureAgent, AWSAgent
+CloudAgent, DeploymentAgent, AzureAgent, AWSAgent
 
 ## Related Hooks
-DeploymentHook
+DeploymentHook, PostDeploymentQAHook
 
 ## Example
-"Apply the CloudDeployment skill to implement/update <specific artifact> following this project's conventions."
+"Apply CloudDeployment to configure the FastAPI Docker service and Vite static site on Render's free plan, including health checks and environment variables."

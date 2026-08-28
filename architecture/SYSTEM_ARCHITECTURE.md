@@ -6,7 +6,9 @@ digital-twin/
 ├── skills-agents/   # Copilot agents, skills, hooks, prompts, QA & architecture knowledge (built first)
 ├── backend/         # FastAPI document-grounded RAG service (built second)
 ├── frontend/        # React + Vite + TypeScript chat UI (built third)
-└── infra/           # Docker, Docker Compose, Terraform, CI/CD, monitoring (built fourth)
+├── infra/            # Docker, Docker Compose, deployment documentation (built fourth)
+├── samples/          # Approved sample knowledge documents
+└── _scripts/         # Local generation scripts for the skills-agents repository
 ```
 
 ## Three Knowledge Domains
@@ -32,3 +34,6 @@ Strict document grounding; no hallucinated user information; no hardcoded domain
 
 ## Governance
 Significant changes must pass, in order: Architecture Validation → Security Validation → Unit Tests → Integration Tests → Lint → Build → Visual QA → Documentation Validation. See `ArchitectureValidationHook` and `SolutionArchitectAgent`.
+
+## Current Deployment Boundary
+Production uses separate GitHub repositories under `KuruvillaAI`. Render hosts `backend` as a Docker Web Service and `frontend` as a Static Site, both auto-deployed from `main`. The frontend receives `VITE_API_BASE_URL`; the backend receives `CORS_ALLOWED_ORIGINS`. Render's generated `onrender.com` hostname is provider-controlled and is not changed by repository or service renames.

@@ -16,13 +16,13 @@ The infra repository and deployment/CI-CD concerns for backend and frontend.
 Application build artifacts, environment configuration, cloud provider targets.
 
 ## Outputs
-Docker images, docker-compose stacks, Terraform plans, CI/CD pipeline runs, monitoring dashboards.
+Deployment configuration, Render service settings, CI/CD pipeline runs, health-check evidence, and post-deployment QA results.
 
 ## Technologies
-Docker, Docker Compose, Terraform, GitHub Actions, Azure/AWS (optional), Prometheus/Grafana-style monitoring.
+Docker, Docker Compose, GitHub Actions, Render Web Services, Render Static Sites, environment variables, and HTTP health checks. Terraform and other cloud providers are optional alternatives, not the current production path.
 
 ## Skills Used
-DevOpsDeployment, Docker, DockerCompose, Terraform, CloudDeployment, GitHubActions, ContinuousIntegration, ContinuousDeployment, Monitoring, Observability, Logging
+DevOpsDeployment, Docker, DockerCompose, CloudDeployment, GitHubActions, ContinuousIntegration, ContinuousDeployment, Monitoring, Observability, Logging
 
 ## Hooks Used
 CICDHook, DeploymentHook, MonitoringHook, LoggingHook, ErrorHandlingHook
@@ -34,11 +34,12 @@ Other DevOps agents, SecurityTestAgent, InfrastructureSecurityAgent, VisualQAAge
 Application-level backend/frontend logic agents.
 
 ## Workflow
-1. Receive a deployment/infra task from MasterOrchestrationAgent.
-2. Implement infra-as-code or pipeline changes.
-3. Validate via CI/CD (lint, test, security scan, build, deploy, health check).
-4. Trigger PostDeploymentQAHook / VisualQAAgent smoke test.
-5. Report deployment status.
+1. Identify the affected repository and confirm its `main` branch and Render service.
+2. Validate tests, lint, and production build locally or in GitHub Actions.
+3. Keep deployment configuration in the relevant repository (`render.yaml` and Dockerfile where applicable).
+4. Confirm Render reports a live deployment and run the backend health and CORS checks.
+5. Open the frontend and trigger `PostDeploymentQAHook` / `VisualQAAgent` smoke tests.
+6. Report URLs, service state, limitations, and any cold-start or persistence caveats.
 
 ## Architecture Rules
 - Follow the layered architecture defined in ../../architecture/SYSTEM_ARCHITECTURE.md.
@@ -61,6 +62,11 @@ Application-level backend/frontend logic agents.
 - Update the relevant README, architecture doc, or QA doc whenever behavior changes.
 - Keep this agent file's Example Usage section in sync with real capabilities.
 - Documentation is living and must always reflect the actual system state.
+
+## Deployment Rules
+- Do not claim a generated Render hostname can be renamed by changing a service or repository name.
+- Keep frontend `VITE_API_BASE_URL` and backend `CORS_ALLOWED_ORIGINS` aligned.
+- Do not put provider secrets in GitHub repositories, Docker images, or `render.yaml`.
 
 ## Example Usage
 Invoked by MasterOrchestrationAgent (directly or via a domain orchestration agent) whenever a task falls within this agent's scope.

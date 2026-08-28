@@ -1,20 +1,22 @@
 ﻿# PostDeploymentQAHook
 
 ## Trigger
-After a deployment completes
+After Render reports a frontend or backend deployment as live.
 
 ## Purpose
-Open the deployed app, run smoke tests, verify backend/chatbot/grounding, and report status.
+Open the deployed frontend, verify its connection to the deployed backend, and run the applicable smoke tests.
 
 ## Preconditions
 - The relevant repository is present and its dependencies are installed.
 - Any upstream hooks required before this one have completed successfully.
 
 ## Actions
-1. Detect that the trigger condition has occurred.
-2. Invoke the responsible agent(s): VisualQAAgent, DeploymentAgent.
-3. Apply the relevant skill(s): VisualQualityAssurance.
-4. Record the outcome (pass/fail) and any artifacts (logs, reports, evidence).
+1. Open the Render frontend URL.
+2. Confirm the page renders and the health badge reaches `Backend online` after any free-tier cold start.
+3. Open the backend `/health` URL and verify HTTP 200.
+4. Verify CORS allows the deployed frontend origin.
+5. Test upload/chat/grounding when approved knowledge content is available.
+6. Invoke `VisualQAAgent` and record pass/fail evidence in the QA documents.
 
 ## Failure Behavior
 - On failure, halt the current task and report the failure to `MasterOrchestrationAgent`.
@@ -25,7 +27,7 @@ Open the deployed app, run smoke tests, verify backend/chatbot/grounding, and re
 VisualQAAgent, DeploymentAgent
 
 ## Required Skills
-VisualQualityAssurance
+VisualQualityAssurance, CloudDeployment
 
 ## Example
-"Trigger PostDeploymentQAHook after after a deployment completes and report the result."
+"Trigger PostDeploymentQAHook after Render reports the deployment live and record frontend, backend, CORS, and chat smoke-test results."
