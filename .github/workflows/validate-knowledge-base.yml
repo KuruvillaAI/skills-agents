@@ -1,0 +1,64 @@
+name: Validate Skills-Agents Knowledge Base
+
+on:
+  pull_request:
+    paths:
+      - "skills-agents/**"
+  push:
+    branches: [main]
+    paths:
+      - "skills-agents/**"
+
+jobs:
+  validate-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate agent files follow the required template
+        shell: bash
+        run: |
+          set -e
+          required_sections=("## Purpose" "## Responsibilities" "## Scope" "## Inputs" "## Outputs" "## Technologies" "## Skills Used" "## Hooks Used" "## Agents It Can Delegate To" "## Agents It Must Not Duplicate" "## Workflow" "## Architecture Rules" "## Security Rules" "## Testing Rules" "## Documentation Rules" "## Example Usage" "## Example Copilot Prompts")
+          fail=0
+          for f in skills-agents/.github/agents/*.md; do
+            for s in "${required_sections[@]}"; do
+              if ! grep -qF "$s" "$f"; then
+                echo "::error file=$f::Missing required section: $s"
+                fail=1
+              fi
+            done
+          done
+          exit $fail
+
+      - name: Validate skill files have required sections
+        shell: bash
+        run: |
+          set -e
+          required=("## Purpose" "## Workflow" "## Inputs" "## Outputs" "## Related Agents" "## Related Hooks" "## Example")
+          fail=0
+          for f in skills-agents/.github/skills/*.md; do
+            for s in "${required[@]}"; do
+              if ! grep -qF "$s" "$f"; then
+                echo "::error file=$f::Missing required section: $s"
+                fail=1
+              fi
+            done
+          done
+          exit $fail
+
+      - name: Validate hook files have required sections
+        shell: bash
+        run: |
+          set -e
+          required=("## Trigger" "## Purpose" "## Preconditions" "## Actions" "## Failure Behavior" "## Responsible Agents" "## Required Skills" "## Example")
+          fail=0
+          for f in skills-agents/.github/hooks/*.md; do
+            for s in "${required[@]}"; do
+              if ! grep -qF "$s" "$f"; then
+                echo "::error file=$f::Missing required section: $s"
+                fail=1
+              fi
+            done
+          done
+          exit $fail
