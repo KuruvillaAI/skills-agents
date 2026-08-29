@@ -5,7 +5,7 @@
 | Stage | Agent | Notes |
 |---|---|---|
 | Upload / ingest | `DocumentIngestionAgent`, `DocumentValidationAgent`, `DocumentProcessingAgent` | Validates, parses, cleans, chunks, versions |
-| Profile source | `ProfileIngestionAgent` | Fetches public LinkedIn profile and bounded explicit public links; labels sources and creates a knowledge document |
+| Profile source | `ProfileIngestionAgent` | Uses official LinkedIn OAuth/OIDC to import the authenticated member's permitted profile fields into a source-labelled knowledge document |
 | Embed | `EmbeddingAgent` | Configurable embedding provider (mock/local default, OpenAI optional) |
 | Index | `VectorDatabaseAgent` | FAISS (default, local) or Pinecone (optional), behind one interface |
 | Retrieve | `RetrievalAgent` | Query preprocessing, embedding, Top-K semantic search |

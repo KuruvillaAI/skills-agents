@@ -1,20 +1,20 @@
 # ProfileIngestionAgent
 
 ## Purpose
-Orchestrates safe ingestion of publicly accessible LinkedIn profiles and explicitly linked public sites into the approved knowledge-document pipeline.
+Orchestrates official LinkedIn OAuth/OIDC authentication and ingestion of the authenticated member's permitted profile fields into the approved knowledge-document pipeline.
 
 ## Responsibilities
-- Validate public HTTPS profile URLs and enforce fetch limits.
-- Extract profile facts, links, and readable content from public pages.
-- Delegate summarization to the configured AI provider.
+- Initiate and validate OAuth/OIDC authorization for the current user.
+- Exchange authorization codes and fetch only provider-permitted userinfo fields.
+- Keep provider tokens server-side and never collect passwords or session cookies.
 - Send the generated text to DocumentIngestionAgent for indexing.
 - Preserve source URLs and never invent unavailable profile details.
 
 ## Scope
-Profile URL retrieval and knowledge-document creation. It does not access private accounts, bypass controls, or own vector indexing.
+OAuth-authorized profile retrieval and knowledge-document creation. It does not scrape private accounts, bypass controls, or own vector indexing.
 
 ## Inputs
-Public LinkedIn URL, fetch configuration, source-fetch interface, LLM provider, and document-ingestion service.
+OAuth callback, configured LinkedIn client, server-side session, and document-ingestion service.
 
 ## Outputs
 Indexed profile knowledge document or a structured validation/fetch error.
@@ -35,18 +35,18 @@ DocumentIngestionAgent, AIProviderAgent, SecurityAgent, BackendIntegrationTestin
 RetrievalAgent, GroundingAgent, frontend agents, or deployment agents.
 
 ## Workflow
-1. Validate the profile URL.
-2. Fetch the profile and bounded explicit public links.
-3. Extract and label source content.
-4. Generate an evidence-only summary.
-5. Index the summary through DocumentIngestionAgent.
+1. Redirect to LinkedIn OAuth/OIDC and validate the callback state.
+2. Exchange the code server-side and obtain permitted userinfo.
+3. Create a secure application session.
+4. Create a source-labelled document from returned fields.
+5. Index it through DocumentIngestionAgent.
 6. Return the document record and source count.
 
 ## Architecture Rules
-Use interface-driven source fetching and the existing document-ingestion boundary. Never write directly to a vector store.
+Use interface-driven OAuth clients and the existing document-ingestion boundary. Never write directly to a vector store.
 
 ## Security Rules
-Allow HTTPS public hosts only. Reject localhost, private/link-local/reserved addresses, credentials, non-HTML content, oversized responses, and unbounded redirects. Never bypass authentication or access controls.
+Use state validation, short-lived single-use codes, secure HTTP-only cookies, exact callback URIs, and server-side token handling. Never bypass authentication or access controls.
 
 ## Testing Rules
 Cover URL validation, linked-page limits, extraction, summarization, indexing, and failure paths with unit and integration tests.

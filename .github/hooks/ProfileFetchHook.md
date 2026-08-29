@@ -1,25 +1,25 @@
 # ProfileFetchHook
 
 ## Trigger
-A user submits a LinkedIn profile URL for knowledge-document creation.
+A user chooses to import their authenticated LinkedIn profile for knowledge-document creation.
 
 ## Purpose
-Coordinate safe public profile retrieval before summarization and indexing.
+Coordinate official LinkedIn OAuth/OIDC authorization before profile import and indexing.
 
 ## Preconditions
-- URL is supplied by the user.
+- LinkedIn OAuth client credentials and an exact callback URI are configured.
 - ProfileIngestionAgent and ProfileKnowledgeIngestion are available.
 - No authentication or access-control bypass is required.
 
 ## Actions
-1. Validate HTTPS URL and public network destination.
-2. Fetch the profile with size, timeout, content-type, redirect, and page-count limits.
-3. Follow only explicit public external links, with a strict bounded allowlist.
-4. Extract source-labelled text and invoke evidence-only summarization.
-5. Index the generated text through DocumentUploadHook and record sources/counts.
+1. Redirect the user to LinkedIn's authorization endpoint with a short-lived state value.
+2. Validate state against the HTTP-only browser cookie and exchange the authorization code server-side.
+3. Retrieve only fields permitted by the configured LinkedIn OAuth scopes.
+4. Create a source-labelled knowledge document and index it through DocumentUploadHook.
+5. Record the import outcome without logging tokens or profile contents.
 
 ## Failure Behavior
-Reject unsafe or inaccessible URLs with a structured client-safe error. Never fall back to private access, scrape credentials, or continue after a security validation failure.
+Reject invalid callbacks, expired state, unauthenticated imports, or unconfigured provider credentials with a structured client-safe error. Never collect passwords, expose tokens, or scrape authenticated pages.
 
 ## Responsible Agents
 ProfileIngestionAgent, SecurityAgent, DocumentIngestionAgent
@@ -28,4 +28,4 @@ ProfileIngestionAgent, SecurityAgent, DocumentIngestionAgent
 ProfileKnowledgeIngestion, DocumentValidation, DocumentProcessing
 
 ## Example
-"Trigger ProfileFetchHook for the supplied public LinkedIn URL and report whether the sourced knowledge document was indexed."
+"Trigger ProfileFetchHook after LinkedIn OAuth callback and report whether permitted profile data was indexed."

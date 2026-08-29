@@ -4,17 +4,17 @@
 Turn a user-supplied, publicly accessible professional profile URL into an evidence-only knowledge document.
 
 ## Workflow
-1. Validate that the URL is HTTPS and publicly routable.
-2. Fetch only the profile page and a bounded set of explicit external links found on it.
-3. Extract readable page text and source URLs without bypassing authentication, paywalls, robots rules, or access controls.
-4. Summarize the available facts through the configured LLM provider, preserving uncertainty and source boundaries.
-5. Index the generated `.txt` knowledge document through the existing document-ingestion pipeline.
+1. Redirect the user to official LinkedIn OAuth/OIDC and validate the callback state server-side.
+2. Exchange the one-time authorization code only on the backend and fetch permitted userinfo fields.
+3. Create a secure application session without exposing provider tokens to the frontend.
+4. Create and index a source-labelled knowledge document containing only the permitted returned fields.
+5. Use a user-uploaded LinkedIn export for experience, projects, skills, certifications, and other data not granted by LinkedIn scopes.
 
 ## Inputs
-A public LinkedIn profile URL and configured fetch, summarization, and document-ingestion services.
+An authenticated LinkedIn OAuth session, configured official LinkedIn client, and document-ingestion service.
 
 ## Outputs
-An indexed knowledge document containing sourced profile facts, linked-site summaries, and source URLs.
+An indexed knowledge document containing source-labelled, LinkedIn-permitted profile facts.
 
 ## Related Agents
 ProfileIngestionAgent, DocumentIngestionAgent, AIProviderAgent, SecurityAgent, BackendIntegrationTestingAgent
@@ -23,4 +23,4 @@ ProfileIngestionAgent, DocumentIngestionAgent, AIProviderAgent, SecurityAgent, B
 ProfileFetchHook, DocumentUploadHook, DocumentValidationHook, EmbeddingCreationHook, VectorDBSyncHook, GroundingValidationHook
 
 ## Example
-"Use ProfileKnowledgeIngestion for a public LinkedIn URL and index its available profile and linked GitHub details without accessing private content."
+"Use ProfileKnowledgeIngestion to import only the authenticated LinkedIn member's fields approved by OAuth scopes."
