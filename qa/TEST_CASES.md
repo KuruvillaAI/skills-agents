@@ -13,4 +13,7 @@
 | TC-009 | FEAT-003 Chat failure and recovery | Document ingested | Abort one chat request, observe error, remove fault, re-enter the message, and resend | Clear error appears and re-entry/resend recovers | Controlled `POST /chat` abort showed the server error message; re-entering and resending then returned grounded `Sources (1)`. No dedicated Retry button was observed | Pass (resend recovery) | Browser body, requestFailed event, and follow-up response | 2026-08-29 | | |
 | TC-010 | FEAT-003 Keyboard operation | Chat page open | Tab through Upload, textbox, and Send; submit with Enter | Focusable controls can be operated without a mouse | Upload and textbox received focus; Send received focus after typing; Enter on textbox and Send both submitted | Pass (tested controls) | Accessibility snapshots showing active elements and resulting messages | 2026-08-29 | | |
 
+| TC-011 | FEAT-004 LinkedIn profile import (valid public source) | Public LinkedIn profile URL is accessible | Submit a public LinkedIn URL | Profile page and bounded explicit public links are summarized, indexed, and source count is returned | | Not Run | | | | |
+| TC-012 | FEAT-004 LinkedIn profile import (unsafe URL) | Import form available | Submit a non-LinkedIn, private-network, credential-bearing, or non-HTTPS URL | Request is rejected without fetching or indexing content | | Not Run | | | | |
+
 *(Additional test cases are added as features are discovered/built and tested by VisualQAAgent.)*

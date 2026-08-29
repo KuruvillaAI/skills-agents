@@ -73,4 +73,10 @@ Documents complete, real user workflows through the application, each with preco
 - **Validation**: Console and network were inspected; 390x844 had no horizontal overflow; automated suite completed with `173 passed, 1 warning`.
 - **Result**: All approval criteria passed. No dedicated Retry button was observed or documented.
 
+## WF-010: Import Public LinkedIn Profile
+- **Preconditions**: A public LinkedIn profile URL and access to the profile import form.
+- **Steps**: 1) Enter the URL in the LinkedIn profile field. 2) Submit the form. 3) Wait for indexing to complete.
+- **Expected Result**: Available public profile content and bounded explicit public links are summarized, source-labelled, indexed, and reported with source/chunk counts.
+- **Related Features**: FEAT-004. **Related UI**: PROFILE-URL-001, PROFILE-IMPORT-001. **Related APIs**: POST /ingest-linkedin.
+
 *(Additional workflows are added by VisualQAAgent as real functionality is discovered/built.)*

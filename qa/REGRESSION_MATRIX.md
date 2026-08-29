@@ -7,6 +7,7 @@ Tracks, per feature, which regression areas must be re-verified when that featur
 | FEAT-001 Health Check | n/a | ✅ required | ✅ required | n/a | ✅ required | n/a | n/a | Pass |
 | FEAT-002 Document Upload | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | Pass (manual valid and invalid paths) |
 | FEAT-003 Chat / Ask Question | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | Pass |
+| FEAT-004 LinkedIn Profile Knowledge Import | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | Pending |
 
 FEAT-003 regression includes greeting handling (TC-007) plus supported-answer grounding and unsupported-question refusal (TC-004/TC-005); a greeting must not weaken the factual pipeline. Failure recovery is by re-entry and resend (TC-009); no dedicated Retry button is part of the observed UI.
 
