@@ -32,6 +32,11 @@ The deployed application passes the chat, grounding, security, and UI checks. Th
 
 Otherwise: `QA STATUS: FAIL`, with the specific unmet criteria and blockers listed below.
 
+## OAuth Deployment Blockers
+
+- Backend OAuth route is deployed and safely returns HTTP 503 because `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_REDIRECT_URI`, and `FRONTEND_BASE_URL` have not been configured in Render. A real LinkedIn login cannot be tested without them.
+- The frontend static deployment is still serving the preceding public-URL import bundle; it must rebuild from frontend commit `85f15e8` before the OAuth login control can be verified in the deployed browser.
+
 ## Latest Blockers
 
 - The exact supplied profile `https://in.linkedin.com/in/kuruvilla-biju-cheruvallil` publicly redirects to LinkedIn's authentication wall and returns HTTP 999 to server requests. The application reports this clearly and supports the documented alternatives: a publicly accessible URL, LinkedIn PDF export, or uploaded/pasted profile content. This is the sole blocker; no bypass was attempted.
