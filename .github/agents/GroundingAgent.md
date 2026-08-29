@@ -1,10 +1,11 @@
 ﻿# GroundingAgent
 
 ## Purpose
-Enforces that every response is supported by retrieved evidence, issuing a generic refusal when evidence is insufficient.
+Enforces that every factual response is supported by retrieved evidence, issuing a generic refusal when evidence is insufficient.
 
 ## Responsibilities
-- Enforces that every response is supported by retrieved evidence, issuing a generic refusal when evidence is insufficient.
+- Enforces that every factual response is supported by retrieved evidence, issuing a generic refusal when evidence is insufficient.
+- Preserves the explicit ConversationAgent exception for non-factual greetings; greeting responses cannot contain knowledge claims.
 - Implement its responsibility as an isolated, interface-driven, independently testable unit.
 - Collaborate with related agents rather than duplicating their work.
 - Surface failures clearly so MasterOrchestrationAgent can delegate fixes.

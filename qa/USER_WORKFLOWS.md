@@ -8,6 +8,12 @@ Documents complete, real user workflows through the application, each with preco
 - **Expected Result**: A grounded response appears in the message list, attributable to retrieved evidence.
 - **Related Features**: FEAT-003. **Related UI**: CHAT-INPUT-001, CHAT-SEND-001. **Related APIs**: POST /chat.
 
+## WF-009: Conversational Greeting
+- **Preconditions**: Frontend loaded on Chat page; a document is optional.
+- **Steps**: 1) Type `hi`, `hello`, or a time-of-day greeting into CHAT-INPUT-001. 2) Click CHAT-SEND-001.
+- **Expected Result**: A concise conversational response appears without the knowledge refusal, evidence, or claims about the user.
+- **Related Features**: FEAT-003. **Related UI**: CHAT-INPUT-001, CHAT-SEND-001. **Related APIs**: POST /chat.
+
 ## WF-002: Upload Document
 - **Preconditions**: On Upload page/panel.
 - **Steps**: 1) Select a valid document via UPLOAD-FILE-001. 2) Click UPLOAD-SUBMIT-001.

@@ -15,6 +15,11 @@
 | Generate | `ResponseGenerationAgent`, `AIModelAgent`, `AIProviderAgent` | LLM call through a swappable provider interface |
 | Validate response | `HallucinationDetectionAgent`, `GroundingAgent` | Reject/regenerate unsupported claims; refuse if evidence insufficient |
 
+Before retrieval, `ConversationAgent` classifies exact generic conversational intents such as
+greetings. These responses contain no knowledge claims, are marked ungrounded but not refused,
+and do not weaken grounding for factual questions. All other messages continue through the full
+retrieval, grounding, generation, and hallucination-validation pipeline.
+
 ## Provider Abstraction
 `AIProviderAgent` defines `EmbeddingProvider` and `LLMProvider` interfaces. The backend ships with:
 - A **mock/local provider** (deterministic, offline, no API key required) used by default and in tests.
@@ -28,4 +33,4 @@
 Switching backends is a configuration change only; no business logic depends on the concrete implementation.
 
 ## Grounding Guarantee
-No stage may skip `GroundingAgent`. If assembled context does not clear the relevance threshold, the pipeline short-circuits directly to the generic refusal without calling the LLM for content generation (though the LLM may still be used to phrase the refusal consistently with personality, without adding any unsupported facts).
+No factual response may skip `GroundingAgent`. If assembled context does not clear the relevance threshold, the pipeline short-circuits directly to the generic refusal without calling the LLM for content generation. The only pre-retrieval exception is an exact generic conversational intent, such as `hi` or `hello`; it may return a non-factual conversational response with no evidence.

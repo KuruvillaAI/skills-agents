@@ -8,6 +8,8 @@ Tracks, per feature, which regression areas must be re-verified when that featur
 | FEAT-002 Document Upload | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | Pending |
 | FEAT-003 Chat / Ask Question | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | ✅ required | Pending |
 
+FEAT-003 regression includes greeting handling (TC-007) plus supported-answer grounding and unsupported-question refusal (TC-004/TC-005); a greeting must not weaken the factual pipeline.
+
 ## How to use
 1. When a feature changes, find its row here.
 2. Run automated + manual regression for every column marked "required".

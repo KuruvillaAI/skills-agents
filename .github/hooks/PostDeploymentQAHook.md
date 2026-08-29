@@ -15,7 +15,7 @@ Open the deployed frontend, verify its connection to the deployed backend, and r
 2. Confirm the page renders and the health badge reaches `Backend online` after any free-tier cold start.
 3. Open the backend `/health` URL and verify HTTP 200.
 4. Verify CORS allows the deployed frontend origin.
-5. Test upload/chat/grounding when approved knowledge content is available.
+5. Test upload, greeting, supported chat, and unsupported-question grounding when approved knowledge content is available.
 6. Invoke `VisualQAAgent` and record pass/fail evidence in the QA documents.
 
 ## Failure Behavior

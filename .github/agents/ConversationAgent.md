@@ -5,6 +5,8 @@ Manages conversation state, turn history, and session context for chat interacti
 
 ## Responsibilities
 - Manages conversation state, turn history, and session context for chat interactions.
+- Classifies exact generic conversational intents before retrieval so greetings receive a natural non-factual response.
+- Keeps factual questions on the retrieval and grounding pipeline; it never supplies personal facts or bypasses validation.
 - Implement its responsibility as an isolated, interface-driven, independently testable unit.
 - Collaborate with related agents rather than duplicating their work.
 - Surface failures clearly so MasterOrchestrationAgent can delegate fixes.
@@ -34,11 +36,11 @@ Other AI/Digital Twin agents in the pipeline, BackendIntegrationTestingAgent, Se
 Frontend, DevOps, and generic CRUD backend agents. Must not implement UI, deployment, or unrelated persistence logic.
 
 ## Workflow
-1. Receive input from the previous pipeline stage or MasterOrchestrationAgent.
-2. Perform this agent's isolated responsibility behind a clear interface.
-3. Emit observability events for the ObservabilityAgent.
-4. Hand off output to the next pipeline stage or GroundingAgent.
-5. Never bypass GroundingAgent or HallucinationDetectionAgent on the way to a response.
+1. Receive the validated chat message from the controller.
+2. Normalize it and classify only exact generic conversational intents.
+3. Return a non-factual conversational response for a recognized intent, or hand factual input to RetrievalAgent.
+4. Record the user and assistant turns for either branch.
+5. Never provide factual content or bypass GroundingAgent/HallucinationDetectionAgent for factual input.
 
 ## Architecture Rules
 - Follow the layered architecture defined in ../../architecture/SYSTEM_ARCHITECTURE.md.

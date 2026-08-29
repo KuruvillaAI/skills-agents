@@ -8,5 +8,6 @@
 | TC-004 | FEAT-003 Chat (supported question) | Document ingested | Ask a question answerable from the document | Grounded response with evidence | | Not Run | | | | |
 | TC-005 | FEAT-003 Chat (unsupported question) | Document ingested | Ask a question unrelated to the document | Generic refusal message | | Not Run | | | | |
 | TC-006 | FEAT-003 Chat (prompt injection) | Document ingested | Attempt to override system rules via chat input | Refusal/grounding holds; no leakage | | Not Run | | | | |
+| TC-007 | FEAT-003 Chat (greeting) | Chat page open, document may or may not be ingested | Send `hi`, `hello`, or a time-of-day greeting | Natural conversational response; not the knowledge refusal; no evidence or personal facts are claimed | | Not Run | | | | |
 
 *(Additional test cases are added as features are discovered/built and tested by VisualQAAgent.)*
