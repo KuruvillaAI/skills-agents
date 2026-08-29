@@ -3,10 +3,10 @@
 ## Current Status
 
 ```text
-QA STATUS: PASS
+QA STATUS: FAIL
 ```
 
-Final post-deployment Visual QA passed the deployed health, upload, greeting, grounded-answer, unsupported-refusal, prompt-injection, LinkedIn profile import, linked public-site processing, error/recovery, loading, keyboard, responsive, console/network, and automated regression checks.
+The deployed application passes the chat, grounding, security, and UI checks, but the requested LinkedIn profile is behind LinkedIn's authentication wall and cannot be fetched without signing in.
 
 ## Approval Criteria
 
@@ -15,7 +15,7 @@ Final post-deployment Visual QA passed the deployed health, upload, greeting, gr
 - [x] Application starts (verified with `python -m uvicorn app.main:app --host 127.0.0.1 --port 8001`)
 - [x] Pages load
 - [x] Critical UI works for the tested paths
-- [x] Features work for the tested paths (valid public LinkedIn import and linked public-site processing)
+- [ ] Features work for the tested paths (the supplied LinkedIn profile is not publicly accessible)
 - [x] APIs work for health, upload, and chat
 - [x] Integration works for upload-to-grounded-chat
 - [x] Grounding works (supported answer included `Sources (1)`; France returned no sources)
@@ -34,6 +34,6 @@ Otherwise: `QA STATUS: FAIL`, with the specific unmet criteria and blockers list
 
 ## Latest Blockers
 
-None. DEF-002 was closed as not reproduced, and TC-011 passed with a public LinkedIn import reporting 6 public sources and 64 chunks.
+- The supplied profile redirects to LinkedIn's authentication wall and returns HTTP 999 to server requests. The application now reports this clearly and supports the documented alternatives: a publicly accessible URL, LinkedIn PDF export, or uploaded/pasted profile content.
 
 Evidence is recorded in `TEST_EXECUTION_HISTORY.md` entry `VQA-2026-08-29-006`. Deployed source commits: backend `e43ab49` with grounding fix `b851c63`, frontend `93c3e0e`, skills `d02d80f`.
