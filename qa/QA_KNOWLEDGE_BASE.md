@@ -24,3 +24,7 @@ This directory is the **internal QA knowledge domain** for the digital-twin proj
 2. Update these documents after every `VisualQAAgent` run, per `QADocumentationHook`.
 3. Never overwrite `TEST_EXECUTION_HISTORY.md` — always append.
 4. Keep this knowledge base fully separate from `skills-agents/architecture/` (engineering knowledge) and the backend's `documents/` (public digital-twin knowledge).
+
+## Latest QA run
+
+Deployed-fix approval is recorded in `TEST_EXECUTION_HISTORY.md` as `VQA-2026-08-29-003`. Startup, the completed automated suite (`173 passed, 1 warning`), manual error/loading/grounding/security/accessibility/responsive checks, and console/network inspection passed. Current status: `QA STATUS: PASS`.

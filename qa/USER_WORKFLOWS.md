@@ -32,11 +32,11 @@ Documents complete, real user workflows through the application, each with preco
 - **Expected Result**: The chatbot returns the generic refusal message; no fabricated answer is given.
 - **Related Features**: FEAT-003. **Related UI**: CHAT-INPUT-001, CHAT-SEND-001. **Related APIs**: POST /chat.
 
-## WF-005: API Failure / Retry
+## WF-005: API Failure / Resend Recovery
 - **Preconditions**: Backend temporarily unavailable or returns an error.
-- **Steps**: 1) Send a chat message. 2) Observe failure. 3) Click CHAT-RETRY-001 once backend is available.
-- **Expected Result**: Error state is shown clearly; retry successfully resends the message.
-- **Related Features**: FEAT-003. **Related UI**: CHAT-RETRY-001. **Related APIs**: POST /chat.
+- **Steps**: 1) Send a chat message. 2) Observe failure. 3) Re-enter the message and submit with CHAT-SEND-001 once the backend is available.
+- **Expected Result**: Error state is shown clearly; re-entry and resend successfully recover the conversation.
+- **Related Features**: FEAT-003. **Related UI**: CHAT-INPUT-001, CHAT-SEND-001. **Related APIs**: POST /chat.
 
 ## WF-006: New Conversation / Session Restoration
 - **Preconditions**: An existing conversation with at least one message.
@@ -54,5 +54,23 @@ Documents complete, real user workflows through the application, each with preco
 - **Preconditions**: Viewport set to a mobile breakpoint.
 - **Steps**: 1) Navigate the app. 2) Ask a question. 3) Upload a document.
 - **Expected Result**: All controls remain usable, readable, and correctly laid out at mobile widths.
+
+## Run 2026-08-29: Deployed Visual QA
+- **Environment**: VS Code integrated browser, deployed frontend `frontend-lvhc.onrender.com`, backend `backend-57rc.onrender.com`, viewport 390x844 for responsive check.
+- **Observed**: Health returned HTTP 200; `sample-knowledge-document.txt` uploaded and indexed as 2 chunks; `hi` produced a conversational response; the supported question produced a Python answer with expanded `Sources (1)` evidence; France and the prompt-injection probe returned the generic refusal.
+- **Evidence**: Browser page snapshot, mobile screenshot, direct `/health` response, and reload capture with no console errors or failed requests.
+- **Scope note**: Invalid-upload, backend-unavailable retry, and explicit loading-state timing were not exercised; this run is targeted post-deployment verification, not full approval sign-off.
+
+## Run 2026-08-29: Post-deployment approval checks
+- **Environment**: VS Code integrated browser, deployed frontend `frontend-lvhc.onrender.com`, viewport 390x844 for responsive check.
+- **Observed**: Selecting `frontend/package.json` produced `Unsupported file type '.json'. Allowed types: .txt, .md, .pdf.` and did not change the indexed-document count. Keyboard Tab reached Upload, Chat message, and Send; Enter on the textbox and focused Send submitted successfully. A 100 ms capture showed `...` before the response. Aborting `POST /chat` produced the server error; removing the fault and resending produced a grounded answer with `Sources (1)`.
+- **Responsive/network evidence**: At 390x844, `scrollWidth` and client width were both 390. Resource entries included `/health`, `/upload-document`, and `/chat`; the controlled abort was the only observed failed chat request.
+- **Scope note**: No dedicated Retry button was observed; recovery used re-entry and resend. Startup and automated regression were completed for the final approval run below.
+
+## Run 2026-08-29: Final deployed-fix approval
+- **Environment**: Backend startup verified with `python -m uvicorn app.main:app --host 127.0.0.1 --port 8001`; deployed frontend/backend inspected in the VS Code integrated browser on Windows; desktop and 390x844 responsive viewports.
+- **Observed**: Valid sample upload succeeded; health returned 200; `hi` returned `Hi! How can I help you?`; the supported Python question returned a grounded answer with `Sources (1)`; France returned the generic refusal; invalid `.json` upload was rejected; `...` was visible during loading; a controlled chat failure recovered by re-entry/resend; keyboard Upload, textbox, Enter, and Send paths worked.
+- **Validation**: Console and network were inspected; 390x844 had no horizontal overflow; automated suite completed with `173 passed, 1 warning`.
+- **Result**: All approval criteria passed. No dedicated Retry button was observed or documented.
 
 *(Additional workflows are added by VisualQAAgent as real functionality is discovered/built.)*
