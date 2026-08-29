@@ -27,4 +27,4 @@ This directory is the **internal QA knowledge domain** for the digital-twin proj
 
 ## Latest QA run
 
-Deployed-fix approval is recorded in `TEST_EXECUTION_HISTORY.md` as `VQA-2026-08-29-003`. Startup, the completed automated suite (`173 passed, 1 warning`), manual error/loading/grounding/security/accessibility/responsive checks, and console/network inspection passed. Current status: `QA STATUS: PASS`.
+The final deployed run is recorded in `TEST_EXECUTION_HISTORY.md` as `VQA-2026-08-29-006`. It passed grounding refusal, security, loading, recovery, responsive, accessibility, LinkedIn import, linked public-site processing, and automated checks. Current status: `QA STATUS: PASS`.

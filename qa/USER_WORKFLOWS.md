@@ -80,3 +80,15 @@ Documents complete, real user workflows through the application, each with preco
 - **Related Features**: FEAT-004. **Related UI**: PROFILE-URL-001, PROFILE-IMPORT-001. **Related APIs**: POST /ingest-linkedin.
 
 *(Additional workflows are added by VisualQAAgent as real functionality is discovered/built.)*
+
+## Run 2026-08-29: Cache-busted deployed Visual QA
+- Health returned 200 after Render cold start; sample upload indexed 3 chunks; greeting and supported grounding passed.
+- France returned an unrelated source-backed chunk; injection was refused. Non-LinkedIn URL was rejected, while the tested public LinkedIn URL redirected and could not be validated.
+- Aborted chat displayed the server error and resend completed. Mobile 390x844 had no horizontal overflow. Keyboard progression and explicit loading timing were not evidenced.
+
+## Run 2026-08-29: Final deployed Visual QA
+- Health returned 200; the page showed `Backend online`; the sample document indexed 3 chunks.
+- `hi`, the supported Python question with `Sources (1)`, France refusal with no sources, and prompt-injection refusal passed.
+- `example.com` was rejected as non-LinkedIn. Public `https://www.linkedin.com/in/satyanadella` imported without bypassing controls and indexed 6 public sources with 64 chunks.
+- Aborted chat error and resend recovery passed; delayed chat showed disabled controls and `...`; Tab and Enter worked; 390x844 had no horizontal overflow.
+- Backend automated suite: 180 passed, 1 warning. Frontend: 44 passed. All approval criteria passed.

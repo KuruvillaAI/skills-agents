@@ -3,6 +3,8 @@
 Chronological log of updates to the QA knowledge base itself (not application changes).
 
 ## Unreleased
+- 2026-08-29: Recorded final full Visual QA VQA-2026-08-29-006 against deployed backend `e43ab49` (grounding fix `b851c63`), frontend `93c3e0e`, and skills `d02d80f`; valid LinkedIn import and linked public-site processing passed, DEF-002 was closed as not reproduced, and QA status was set to PASS.
+- 2026-08-29: Recorded final post-deployment Visual QA VQA-2026-08-29-005 for backend `b851c63`, frontend `93c3e0e`, and skills `d02d80f`; QA remains FAIL because the accessible public LinkedIn test profile exceeded the deployed processing limit.
 - 2026-08-29: Recorded VQA-2026-08-29-004 against cache-busted frontend commit `93c3e0e` and backend commit `9ad962d`; documented DEF-002, blocked LinkedIn import, and mobile/network evidence.
 - Initial QA knowledge base scaffold created: `QA_KNOWLEDGE_BASE.md`, `APPLICATION_FEATURES.md`, `UI_ELEMENT_CATALOG.md`, `USER_WORKFLOWS.md`, `TEST_CASES.md`, `REGRESSION_MATRIX.md`, `DEFECT_LOG.md`, `TEST_EXECUTION_HISTORY.md`, `QA_REPORT.md` with initial (pre-build) feature/UI/workflow expectations for FEAT-001..003.
 - Added conversational greeting coverage (TC-007/WF-009), documented the grounding exception, and recorded DEF-001 pending deployed retest.
