@@ -25,3 +25,6 @@ The deployed-fix approval run confirmed the controlled failure/re-entry/resend r
 ## 2026-08-29 final deployed retest
 - DEF-002 closed: the France question returned the exact generic refusal with no source disclosure on backend `e43ab49`/`b851c63`.
 - The prior TC-011 blocker is resolved: the public Satya Nadella profile imported with 6 public sources and 64 chunks.
+
+## 2026-08-29 VQA-2026-08-29-007 observation
+- No new application defect was filed. The exact requested profile is externally inaccessible because LinkedIn redirects public requests to an authentication wall/HTTP 999. The application returned the required actionable message and alternatives; this remains the sole QA blocker and must not be bypassed.

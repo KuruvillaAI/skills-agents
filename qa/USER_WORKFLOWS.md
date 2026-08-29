@@ -81,6 +81,13 @@ Documents complete, real user workflows through the application, each with preco
 
 *(Additional workflows are added by VisualQAAgent as real functionality is discovered/built.)*
 
+## Run 2026-08-29: VQA-2026-08-29-007 exact-profile final QA
+- Environment: VS Code integrated browser on Windows, `https://frontend-lvhc.onrender.com/?deploy=a755e88`, backend `backend-57rc.onrender.com`, desktop and 390x844 mobile viewport.
+- Exact `https://in.linkedin.com/in/kuruvilla-biju-cheruvallil` produced the actionable access-wall message and alternatives. LinkedIn's public redirect/authwall HTTP 999 limitation was recorded; no bypass was attempted.
+- Health returned HTTP 200; `samples/sample-knowledge-document.txt` indexed in 3 chunks. Exact prompts were submitted: `hi` greeted; `explain about yourself` refused; `what is your name` returned `Sources (1)`; projects refused; work experience returned `Sources (2)`; France and the prompt-injection probe returned the generic refusal.
+- Loading showed disabled controls and `...`; an aborted `/chat` displayed the controlled server-error message and restored resend succeeded. Tab/Enter worked. Console/network showed expected authwall HTTP 400 and deliberate abort `net::ERR_FAILED` only; health, upload, and chat requests were observed.
+- Backend: 181 passed, 1 warning. Frontend: 44 passed. QA status: FAIL solely because the exact LinkedIn profile is inaccessible behind LinkedIn's public authwall/HTTP 999.
+
 ## Run 2026-08-29: Cache-busted deployed Visual QA
 - Health returned 200 after Render cold start; sample upload indexed 3 chunks; greeting and supported grounding passed.
 - France returned an unrelated source-backed chunk; injection was refused. Non-LinkedIn URL was rejected, while the tested public LinkedIn URL redirected and could not be validated.

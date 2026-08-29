@@ -26,3 +26,8 @@
 ## Run 2026-08-29: Final deployed Visual QA
 - TC-001 through TC-012 passed, including valid public LinkedIn import and linked public-site processing.
 - Backend: 180 passed, 1 warning. Frontend: 44 passed.
+
+## Run 2026-08-29: VQA-2026-08-29-007
+- TC-001, TC-002, TC-004 through TC-010, and TC-012 passed on the exact deployment. The requested `explain about yourself` and `tell about projects you worked on` prompts returned the supplied sample's generic refusal; no unsupported answer was recorded as a pass.
+- TC-011 is blocked: exact `https://in.linkedin.com/in/kuruvilla-biju-cheruvallil` is publicly redirected by LinkedIn to an authentication wall/HTTP 999. The application returned the actionable alternatives message, not the vague fetch error. No bypass was attempted.
+- Backend: 181 passed, 1 warning. Frontend: 44 passed. Overall QA remains FAIL solely for TC-011's external access limitation.

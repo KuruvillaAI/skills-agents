@@ -27,4 +27,4 @@ This directory is the **internal QA knowledge domain** for the digital-twin proj
 
 ## Latest QA run
 
-The final deployed run is recorded in `TEST_EXECUTION_HISTORY.md` as `VQA-2026-08-29-006`. It passed grounding refusal, security, loading, recovery, responsive, accessibility, LinkedIn import, linked public-site processing, and automated checks. Current status: `QA STATUS: PASS`.
+The latest deployed run is recorded in `TEST_EXECUTION_HISTORY.md` as `VQA-2026-08-29-007`. It passed health, sample upload, grounding/security probes, loading, recovery, responsive, accessibility, and automated checks. The exact requested LinkedIn profile remains blocked by LinkedIn's public authwall/HTTP 999; current status: `QA STATUS: FAIL`.

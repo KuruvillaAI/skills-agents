@@ -19,6 +19,10 @@ Catalog of discovered, relevant UI elements. Populated/updated by `VisualQAAgent
 - Profile URL and import controls were visible and keyboard-focusable. Non-LinkedIn input produced the expected error; the public LinkedIn URL indexed 6 public sources and 64 chunks.
 - At 390x844 the UI had no horizontal overflow and keyboard focus/Enter behavior worked.
 
+## 2026-08-29 VQA-2026-08-29-007
+- Exact LinkedIn URL input/import controls displayed the actionable access-wall response and alternatives.
+- Upload, chat, status, source disclosure, loading `...`, and controlled error messaging were observed. At 390x844, `scrollWidth` equaled `clientWidth` (390); Enter submitted from the chat textbox.
+
 ## 2026-08-29 cache-busted deployed verification
 - LinkedIn URL/import controls were visible; non-LinkedIn input and redirected LinkedIn input produced clear errors.
 - At 390x844 there was no horizontal overflow (`scrollWidth` equaled `clientWidth` at 390); Tab focus progression was not evidenced.

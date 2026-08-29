@@ -6,7 +6,7 @@
 QA STATUS: FAIL
 ```
 
-The deployed application passes the chat, grounding, security, and UI checks, but the requested LinkedIn profile is behind LinkedIn's authentication wall and cannot be fetched without signing in.
+The deployed application passes the chat, grounding, security, and UI checks. The exact requested LinkedIn profile is publicly redirected by LinkedIn to an authentication wall/HTTP 999 and cannot be fetched without signing in.
 
 ## Approval Criteria
 
@@ -26,7 +26,7 @@ The deployed application passes the chat, grounding, security, and UI checks, bu
 - [x] Responsive UI works at 390x844 with no horizontal overflow
 - [x] Accessibility-critical flows work (Tab focus and Enter submission observed)
 - [x] No unresolved BLOCKER defects
-- [x] Required regression tests pass (backend 180 passed, 1 warning; frontend 44 passed)
+- [x] Required regression tests pass (backend 181 passed, 1 warning; frontend 44 passed)
 - [x] Visual QA passes for the tested desktop/mobile states
 - [x] QA documentation is updated
 
@@ -34,6 +34,15 @@ Otherwise: `QA STATUS: FAIL`, with the specific unmet criteria and blockers list
 
 ## Latest Blockers
 
-- The supplied profile redirects to LinkedIn's authentication wall and returns HTTP 999 to server requests. The application now reports this clearly and supports the documented alternatives: a publicly accessible URL, LinkedIn PDF export, or uploaded/pasted profile content.
+- The exact supplied profile `https://in.linkedin.com/in/kuruvilla-biju-cheruvallil` publicly redirects to LinkedIn's authentication wall and returns HTTP 999 to server requests. The application reports this clearly and supports the documented alternatives: a publicly accessible URL, LinkedIn PDF export, or uploaded/pasted profile content. This is the sole blocker; no bypass was attempted.
 
-Evidence is recorded in `TEST_EXECUTION_HISTORY.md` entry `VQA-2026-08-29-006`. Deployed source commits: backend `e43ab49` with grounding fix `b851c63`, frontend `93c3e0e`, skills `d02d80f`.
+Evidence is recorded in `TEST_EXECUTION_HISTORY.md` entry `VQA-2026-08-29-007`.
+
+## Latest Run
+
+- Exact profile response: actionable access-wall message, not `profile page could not be fetched`.
+- Health: HTTP 200; sample upload: indexed in 3 chunks.
+- Chat: exact requested prompts exercised; grounded answers included `Sources (1)` and `Sources (2)` where supported; unrelated and injection probes returned the generic refusal.
+- Loading, controlled error/recovery, keyboard, 390x844 responsive, console, and network checks passed.
+- Backend: 181 passed, 1 warning. Frontend: 44 passed.
+- `QA STATUS: FAIL` solely because the exact profile cannot be imported through LinkedIn's public authwall/HTTP 999.

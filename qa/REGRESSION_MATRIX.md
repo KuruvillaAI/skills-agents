@@ -27,3 +27,8 @@ Manual invalid-upload, loading, controlled failure/recovery, keyboard, responsiv
 - FEAT-001 through FEAT-004 passed the requested deployed regression checks.
 - FEAT-004 unsafe URL rejection, valid public-profile import, and linked public-site processing passed. Overall status: **Pass**.
 - Automated regression passed: backend 180 tests with 1 warning; frontend 44 tests.
+
+## 2026-08-29 VQA-2026-08-29-007
+- FEAT-001, FEAT-002, and FEAT-003 regression areas passed in the deployed browser, including negative/security, loading/recovery, keyboard, mobile, and console/network checks.
+- FEAT-004 exact requested-profile import is **Blocked** by LinkedIn's public authwall/HTTP 999. The actionable application response and alternatives passed; successful import cannot be verified without bypassing the wall.
+- Automated regression passed: backend 181 tests with 1 warning; frontend 44 tests. Overall status: **Fail**, with the authwall as the sole blocker.

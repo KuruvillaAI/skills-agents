@@ -22,3 +22,8 @@ Tracks the real, implemented features of the digital-twin application. Populated
 - Deployment sources: backend `e43ab49`, previous grounding fix `b851c63`, frontend `93c3e0e`, skills `d02d80f`.
 - FEAT-001 through FEAT-004 passed the requested deployed checks.
 - `https://www.linkedin.com/in/satyanadella` imported successfully with 6 public sources and 64 chunks; explicitly linked public-site processing is evidenced by the source count.
+
+## VQA-2026-08-29-007: exact requested profile verification
+- Exact URL `https://in.linkedin.com/in/kuruvilla-biju-cheruvallil` returned the actionable LinkedIn access-wall message: `LinkedIn denied public access to this profile. Use a publicly accessible profile URL, upload a LinkedIn PDF export, or upload/paste the profile content instead.` It did not return the vague fetch-failure message.
+- Health and sample upload passed; greeting, supported grounding, unrelated refusal, injection refusal, loading, recovery, keyboard, and mobile checks passed. The supplied sample refused `explain about yourself` and `tell about projects you worked on`, so no unsupported facts were inferred.
+- Exact profile import is blocked by the documented external authwall limitation. No access-control bypass was attempted.
